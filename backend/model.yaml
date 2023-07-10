@@ -1,0 +1,16 @@
+influenciadores:
+  - nome: ''
+    nick: ''
+    senha: ''
+    contato:
+      telefone: ''
+      whatsapp: ''
+      email: ''
+      telefoneIgualWhatsapp: true
+    canal:
+      instagram: ''
+      youtube: ''
+      facebook: ''
+      linkedin: ''
+      outros: ''
+    
