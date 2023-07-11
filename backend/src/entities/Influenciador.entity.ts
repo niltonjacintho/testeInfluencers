@@ -1,46 +1,68 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Canais } from "./Canais.entity";
-import { Contatos } from "./Contatos.entity.";
-import { Votos } from "./Votos.entity.";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("influenciadores_pkey", ["id"], { unique: true })
 @Entity("influenciador", { schema: "public" })
 export class Influenciador {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number = 0;
+  id: number;
 
   @Column("text", { name: "nome", nullable: true })
-  nome: string = '';
+  nome: string | null;
 
   @Column("text", { name: "fullname", nullable: true })
-  fullname: string = '';
+  fullname: string | null;
 
   @Column("text", { name: "nick", nullable: true })
-  nick: string = '';
+  nick: string | null;
 
   @Column("text", { name: "senha", nullable: true })
-  senha: string = '';
+  senha: string | null;
 
-  @ManyToOne(() => Canais, (canais) => canais.influenciadors)
-  @JoinColumn([{ name: "canal_id", referencedColumnName: "id" }])
-  canal!: Canais;
+  @Column("character varying", {
+    name: "telefone",
+    nullable: true,
+    length: 100,
+  })
+  telefone: string | null;
 
-  // @ManyToOne(() => Contatos, (contatos) => contatos.influenciadors)
-  // @JoinColumn([{ name: "contato_id", referencedColumnName: "id" }])
-  // contato!: Contatos;
+  @Column("character varying", { name: "email", nullable: true, length: 100 })
+  email: string | null;
 
-  // @OneToMany(() => Votos, (votos) => votos.influenciador)
-  // votos: Votos[];
+  @Column("character varying", {
+    name: "instagram",
+    nullable: true,
+    length: 100,
+  })
+  instagram: string | null;
+
+  @Column("character varying", { name: "youtube", nullable: true, length: 100 })
+  youtube: string | null;
+
+  @Column("character varying", {
+    name: "facebook",
+    nullable: true,
+    length: 100,
+  })
+  facebook: string | null;
+
+  @Column("character varying", { name: "outros", nullable: true, length: 100 })
+  outros: string | null;
+
+  @Column("integer", { name: "votos", default: () => "0" })
+  votos: number;
 
   constructor() {
-    // this.votos = [];
+    this.id = 0;
+    this.nome = '';
+    this.fullname = '';
+    this.nick = '';
+    this.senha = '';
+    this.telefone = '';
+    this.email = '';
+    this.instagram = '';
+    this.youtube = '';
+    this.facebook = '';
+    this.outros = '';
+    this.votos = 0;
   }
 }

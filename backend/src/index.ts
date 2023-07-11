@@ -18,6 +18,7 @@ const connection = createConnection({
   username: "postgres",
   password: "postgres",
   database: "teste",
+  logging: true,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
 });
 
