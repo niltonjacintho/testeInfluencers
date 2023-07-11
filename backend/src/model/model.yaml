@@ -1,5 +1,6 @@
 influenciadores:
   - nome: ''
+    fullname: ''
     nick: ''
     senha: ''
     contato:
@@ -14,3 +15,6 @@ influenciadores:
       linkedin: ''
       outros: ''
     
+
+
+npx typeorm-model-generator -h localhost -d teste -p 5433 -u postgres -x postgres -e postgres -o . -s public
