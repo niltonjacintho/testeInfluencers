@@ -1,6 +1,7 @@
 import { Express, Request, Response } from "express";
 import { getRepository } from 'typeorm';
-import { Influenciador } from './../entities/Influenciador';
+import { Influenciador } from '../entities/Influenciador.entity';
+import log from "./../utils/logger";
 
 function routes(app: Express) {
     /**
@@ -84,6 +85,7 @@ function routes(app: Express) {
     */
     app.post('/influenciadores', async (req, res) => {
         try {
+            log.info('entrou');
             const influenciador = await getRepository(Influenciador).save(req.body);
             res.status(201).json(influenciador);
         } catch (err: any) {

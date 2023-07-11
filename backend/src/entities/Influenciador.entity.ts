@@ -7,9 +7,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Canais } from "./Canais";
-import { Contatos } from "./Contatos";
-import { Votos } from "./Votos";
+import { Canais } from "./Canais.entity";
+import { Contatos } from "./Contatos.entity.";
+import { Votos } from "./Votos.entity.";
 
 @Index("influenciadores_pkey", ["id"], { unique: true })
 @Entity("influenciador", { schema: "public" })
@@ -33,10 +33,14 @@ export class Influenciador {
   @JoinColumn([{ name: "canal_id", referencedColumnName: "id" }])
   canal!: Canais;
 
-  @ManyToOne(() => Contatos, (contatos) => contatos.influenciadors)
-  @JoinColumn([{ name: "contato_id", referencedColumnName: "id" }])
-  contato!: Contatos;
+  // @ManyToOne(() => Contatos, (contatos) => contatos.influenciadors)
+  // @JoinColumn([{ name: "contato_id", referencedColumnName: "id" }])
+  // contato!: Contatos;
 
-  @OneToMany(() => Votos, (votos) => votos.influenciador)
-  votos!: Votos[];
+  // @OneToMany(() => Votos, (votos) => votos.influenciador)
+  // votos: Votos[];
+
+  constructor() {
+    // this.votos = [];
+  }
 }
