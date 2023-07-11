@@ -11,7 +11,7 @@ import { Influenciador } from "./Influenciador";
 @Entity("contatos", { schema: "public" })
 export class Contatos {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number;
+  id!: number;
 
   @Column("text", { name: "telefone", nullable: true })
   telefone: string | null;

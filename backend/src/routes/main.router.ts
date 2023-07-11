@@ -8,11 +8,12 @@ function routes(app: Express) {
     * /healthcheck:
     *  get:
     *     tags:
-    *     - Healthcheck
-    *     description: Verifica o status da API
+    *       - Healthcheck
+    *     description: 
+    *       Verifica o status da API
     *     responses:
-    *       200:
-    *         description: App em execução
+    *       '200':
+    *          App em execução
     */
     app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
@@ -46,21 +47,41 @@ function routes(app: Express) {
     app.get("/influencer/listByName", (req: Request, res: Response) => res.sendStatus(200));
 
     /**
-        * @openapi
-        *  /influencer/listbychannel:
-        *  paths:
-        *   Influencers:
-        *  get:
-        *     tags:
-        *       - influencer
-        *     description: Verifica o status da API
-        *     responses:
-        *         200:
-        *         description: App em execução
-        */
+    * @openapi
+    *  /influencer/listbychannel:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: Verifica o status da API
+    *     responses:
+    *         200:
+    *         description: App em execução
+    */
     app.get("/influencer/listbychannel", (req: Request, res: Response) => res.sendStatus(200));
 
-    // Create a new influenciador
+    /**
+    * @openapi
+    *  /influencer:
+    *  paths:
+    *   Influencers:
+    *  post:
+    *     tags:
+    *       - influencer
+    *     description: Incluir novo influenciador
+    *     parameters:
+    *        - name: id
+    *          in: body
+    *          description: Objeto Influenciador
+    *          schema:
+    *            type: $ref './../entities/influenciador.ts'
+    *     responses:
+    *         200:
+    *           description: App em execução
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
     app.post('/influenciadores', async (req, res) => {
         try {
             const influenciador = await getRepository(Influenciador).save(req.body);
@@ -70,7 +91,21 @@ function routes(app: Express) {
         }
     });
 
-    // Get all influenciadores
+    /**
+    * @openapi
+    *  /influencer:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: recuperar influenciador
+    *     responses:
+    *         200:
+    *           description: App em execução
+    *         500:
+    *           description: Erro - ver mensagem de retorno
+    */
     app.get('/influenciadores', async (req, res) => {
         try {
             const influenciadores = await getRepository(Influenciador).find();
@@ -80,7 +115,28 @@ function routes(app: Express) {
         }
     });
 
-    // Get a specific influenciador
+    /**
+    * @openapi
+    *  /influencer:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: Recuperar influencer pelo ID
+    *     parameters:
+    *        - name: id
+    *          in: query
+    *          description: Limits the number of items on a page
+    *          schema:
+    *            type: integer
+    *     responses:
+    *         200:
+    *           description: 
+    *               App em execução
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
     app.get('/influenciadores/:id', async (req, res) => {
         try {
             const id = parseInt(req.params.id);
@@ -91,7 +147,30 @@ function routes(app: Express) {
         }
     });
 
-    // Update an influenciador
+
+
+    /**
+    * @openapi
+    *  /influencer:
+    *  paths:
+    *   Influencers:
+    *  patch:
+    *     tags:
+    *       - influencer
+    *     description: Atualiza um influenciador
+    *     parameters:
+    *        - name: id
+    *          in: query
+    *          description: Influenciador
+    *          schema:
+    *            type: integer
+    *     responses:
+    *         200:
+    *           description: 
+    *               Registro atualizado
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
     app.patch('/influenciadores/:id', async (req, res) => {
         const id = parseInt(req.params.id);
         try {
@@ -101,6 +180,38 @@ function routes(app: Express) {
                 influenciador
             );
             res.json(updatedInfluenciador);
+        } catch (err: any) {
+            res.status(404).json({ message: err.message });
+        }
+    });
+
+    /**
+    * @openapi
+    *  /influencer:
+    *  paths:
+    *   Influencers:
+    *  delete:
+    *     tags:
+    *       - influencer
+    *     description: Exclui um influenciador
+    *     parameters:
+    *        - name: id
+    *          in: query
+    *          description: Influenciador
+    *          schema:
+    *            type: integer
+    *     responses:
+    *         200:
+    *           description: 
+    *               Registro excluido
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
+    app.patch('/influenciadores/:id', async (req, res) => {
+        const id = parseInt(req.params.id);
+        try {
+            const influenciador = await getRepository(Influenciador).createQueryBuilder('influenciador').delete().where("id = :id", { id: 1 })
+                .execute();
         } catch (err: any) {
             res.status(404).json({ message: err.message });
         }
