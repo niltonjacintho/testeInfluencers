@@ -20,19 +20,6 @@ function routes(app: Express) {
 
     /**
         * @openapi
-        * /influencer/list:
-        *  get:
-        *     tags:
-        *     - influencer
-        *     description: Verifica o status da API
-        *     responses:
-        *       200:
-        *         description: App em execução
-        */
-    app.get("/influencer/list", (req: Request, res: Response) => res.sendStatus(200));
-
-    /**
-        * @openapi
         * /influencer/listByName:
         *  get:
         *     tags:
@@ -49,11 +36,11 @@ function routes(app: Express) {
         try {
             const influenciadores = await getRepository(Influenciador)
                 .createQueryBuilder("influenciador")
-                .where("upper(influenciador.nome) like :nome", { nome: `'%${req.params.nome.toUpperCase()}%'` })
+                .where("upper(influenciador.nome) like :nome", { nome: `%${req.params.nome.toUpperCase()}%` })
+                .orWhere("upper(influenciador.nick) like :nome", { nome: `%${req.params.nome.toUpperCase()}%` })
                 .getMany();
-            res.status(201).json(influenciadores);
+            res.status(200).json(influenciadores);
         } catch (err: any) {
-            log.info('erro');
             res.status(500).json({ message: err.message });
         }
     });
@@ -63,15 +50,37 @@ function routes(app: Express) {
     *  /influencer/listbychannel:
     *  paths:
     *   Influencers:
-    *  get:
+    *  post:
     *     tags:
     *       - influencer
-    *     description: Verifica o status da API
+    *     description: Adiciona um voto ao influenciador
+    *     parameters:
+    *        - name: id
+    *          in: body
+    *          description: Objeto Influenciador
+    *          schema:
+    *            type: integer
     *     responses:
     *         200:
     *         description: App em execução
     */
-    app.get("/influencer/listbychannel", (req: Request, res: Response) => res.sendStatus(200));
+    app.post("/influencer/votar/:id", async (req: Request, res: Response) => {
+        const id = parseInt(req.params.id);
+        try {
+            const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
+            // const novoInfluenciador = influenciador;
+            // novoInfluenciador.votos++;
+            // getRepository(Influenciador).merge(influenciador, novoInfluenciador);
+            influenciador.votos++;
+            const updatedInfluenciador = await getRepository(Influenciador).save(
+                influenciador
+            );
+            res.json(updatedInfluenciador);
+        } catch (err: any) {
+            res.status(404).json({ message: err.message });
+        }
+
+    });
 
     /**
     * @openapi
@@ -94,7 +103,7 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.post('/influenciadores', async (req, res) => {
+    app.post('/influencer', async (req, res) => {
         try {
             const influenciador = await getRepository(Influenciador).save(req.body);
             res.status(201).json(influenciador);
@@ -118,7 +127,7 @@ function routes(app: Express) {
     *         500:
     *           description: Erro - ver mensagem de retorno
     */
-    app.get('/influenciadores', async (req, res) => {
+    app.get('/influencer', async (req, res) => {
         try {
             const influenciadores = await getRepository(Influenciador).find();
             res.json(influenciadores);
@@ -149,7 +158,7 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.get('/influenciadores/:id', async (req, res) => {
+    app.get('/influencer/:id', async (req, res) => {
         try {
             const id = parseInt(req.params.id);
             const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
@@ -183,7 +192,7 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.patch('/influenciadores', async (req, res) => {
+    app.patch('/influencer', async (req, res) => {
         const id = parseInt(req.body.id);
         try {
             const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
@@ -219,7 +228,7 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.delete('/influenciadores/:id', async (req, res) => {
+    app.delete('/influencer/:id', async (req, res) => {
         const id = parseInt(req.params.id);
         try {
             const influenciador = await getRepository(Influenciador).createQueryBuilder('influenciador').delete().where("id = :id", { id: 1 })
