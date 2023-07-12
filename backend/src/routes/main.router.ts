@@ -1,9 +1,8 @@
 import { Express, Request, Response } from "express";
-import { getRepository, Like } from 'typeorm';
-import { Influenciador } from '../entities/Influenciador.entity';
-import log from "./../utils/logger";
+import { InfluencersUseCase } from './../use-cases/influenciador.usecase'
 
 function routes(app: Express) {
+    const infUseCase = new InfluencersUseCase();
     /**
     * @openapi
     * /healthcheck:
@@ -33,16 +32,8 @@ function routes(app: Express) {
         *         description: Todos os influencer que possuam este nome ou parte dele
         */
     app.get("/influencer/list/:nome", async (req: Request, res: Response) => {
-        try {
-            const influenciadores = await getRepository(Influenciador)
-                .createQueryBuilder("influenciador")
-                .where("upper(influenciador.nome) like :nome", { nome: `%${req.params.nome.toUpperCase()}%` })
-                .orWhere("upper(influenciador.nick) like :nome", { nome: `%${req.params.nome.toUpperCase()}%` })
-                .getMany();
-            res.status(200).json(influenciadores);
-        } catch (err: any) {
-            res.status(500).json({ message: err.message });
-        }
+        const result = await infUseCase.getByName(req.params.nome);
+        res.status(result.status).json(result.json);
     });
 
     /**
@@ -65,21 +56,8 @@ function routes(app: Express) {
     *         description: App em execução
     */
     app.post("/influencer/votar/:id", async (req: Request, res: Response) => {
-        const id = parseInt(req.params.id);
-        try {
-            const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
-            // const novoInfluenciador = influenciador;
-            // novoInfluenciador.votos++;
-            // getRepository(Influenciador).merge(influenciador, novoInfluenciador);
-            influenciador.votos++;
-            const updatedInfluenciador = await getRepository(Influenciador).save(
-                influenciador
-            );
-            res.json(updatedInfluenciador);
-        } catch (err: any) {
-            res.status(404).json({ message: err.message });
-        }
-
+        const result = await infUseCase.votar(1, parseInt(req.params.id));
+        res.status(result.status).json(result.json);
     });
 
     /**
@@ -104,12 +82,8 @@ function routes(app: Express) {
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
     app.post('/influencer', async (req, res) => {
-        try {
-            const influenciador = await getRepository(Influenciador).save(req.body);
-            res.status(201).json(influenciador);
-        } catch (err: any) {
-            res.status(400).json({ message: err.message });
-        }
+        const result = await infUseCase.novo(req.body);
+        res.status(result.status).json(result.json);
     });
 
     /**
@@ -128,12 +102,8 @@ function routes(app: Express) {
     *           description: Erro - ver mensagem de retorno
     */
     app.get('/influencer', async (req, res) => {
-        try {
-            const influenciadores = await getRepository(Influenciador).find();
-            res.json(influenciadores);
-        } catch (err: any) {
-            res.status(500).json({ message: err.message });
-        }
+        const result = await infUseCase.getByName('');
+        res.status(result.status).json(result.json);
     });
 
     /**
@@ -159,13 +129,8 @@ function routes(app: Express) {
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
     app.get('/influencer/:id', async (req, res) => {
-        try {
-            const id = parseInt(req.params.id);
-            const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
-            res.json(influenciador);
-        } catch (err: any) {
-            res.status(404).json({ message: err.message });
-        }
+        const result = await infUseCase.getById(parseInt(req.params.id));
+        res.status(result.status).json(result.json);
     });
 
 
@@ -193,17 +158,8 @@ function routes(app: Express) {
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
     app.patch('/influencer', async (req, res) => {
-        const id = parseInt(req.body.id);
-        try {
-            const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
-            getRepository(Influenciador).merge(influenciador, req.body);
-            const updatedInfluenciador = await getRepository(Influenciador).save(
-                influenciador
-            );
-            res.json(updatedInfluenciador);
-        } catch (err: any) {
-            res.status(404).json({ message: err.message });
-        }
+        const result = await infUseCase.update(req.body);
+        res.status(result.status).json(result.json);
     });
 
     /**
@@ -229,21 +185,8 @@ function routes(app: Express) {
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
     app.delete('/influencer/:id', async (req, res) => {
-        const id = parseInt(req.params.id);
-        try {
-            const influenciador = await getRepository(Influenciador).createQueryBuilder('influenciador').delete().where("id = :id", { id: 1 })
-                .execute();
-            log.info(influenciador.affected !== 0);
-
-            if (influenciador.affected! > 0) {
-                res.status(201).json({ message: "Influenciador excluído com sucesso!" });
-            } else {
-                res.status(403).json("Não encontrei influenciador com o id solicitado");
-            }
-
-        } catch (err: any) {
-            res.status(404).json({ message: err.message });
-        }
+        const result = await infUseCase.delete(parseInt(req.params.id));
+        res.status(result.status).json(result.json);
     });
 
 }
