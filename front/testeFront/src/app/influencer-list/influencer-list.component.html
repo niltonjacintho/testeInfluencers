@@ -1,0 +1,9 @@
+<ag-grid-angular style="width: 94vw; height: 45vh" class="ag-theme-alpine" [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef" [rowData]="rowData$ | async" [rowSelection]="'multiple'" [animateRows]="true"
+    (gridReady)="onGridReady($event)" (rowDoubleClicked)=setVisible()></ag-grid-angular>
+<p-dialog header="Dados do fornecedor selecionado" [(visible)]="visible" [style]="{width: '80vw'}"
+    (onHide)="visible = false">
+    <!-- <p-panel header="Header"> -->
+    <app-influencer-edit></app-influencer-edit>
+    <!-- </p-panel> -->
+</p-dialog>
