@@ -7,6 +7,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from "@angular/router/testing";
 
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -14,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MatMenuModule } from '@angular/material/menu';
     RouterModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterTestingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

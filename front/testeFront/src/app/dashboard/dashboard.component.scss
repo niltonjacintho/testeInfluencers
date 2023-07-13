@@ -2,13 +2,6 @@
   margin: 20px;
 }
 
-.dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-}
 
 .more-button {
   position: absolute;
@@ -18,4 +11,26 @@
 
 .dashboard-card-content {
   text-align: center;
+}
+
+.dashboard-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: calc(100vh - 250px);
+
+  .dashboard-card {
+    // position: absolute;
+
+    &.dashboard-card-grid {
+      height: 50vh;
+    }
+
+    &.dashboard-card-footer {
+      height: 20vh;
+    }
+
+  }
+
 }
