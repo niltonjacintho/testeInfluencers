@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { CellClickedEvent, ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { InfluencerService } from '../influenser.service.ts.service';
 
 @Component({
   selector: 'app-influencer-list',
@@ -10,8 +11,9 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./influencer-list.component.scss']
 })
 export class InfluencerListComponent {
-
+  private gridApi: GridApi | undefined;
   public rowData$!: Observable<any[]>;
+
   public visible = false;
   public columnDefs: ColDef[] = [
     { field: "votos", headerName: "Votos", flex: 2 },
@@ -26,24 +28,32 @@ export class InfluencerListComponent {
     { field: "outros", headerName: "Outros", flex: 2 },
   ];
 
-  setVisible() {
-    console.log('VISBLE', this.visible);
-    this.visible = !this.visible;
-  }
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
     cellStyle: { textAlign: 'left' }
   };
-  constructor(private http: HttpClient) { }
 
-  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+  constructor(private http: HttpClient, private influencerSrv: InfluencerService) { }
+
+
+
+
+  setVisible() {
+    const selectedData = this.gridApi!.getSelectedRows();
+    console.log(selectedData);
+    this.influencerSrv.selectedInfluencer.nome = selectedData[0].nome;
+
+    this.visible = !this.visible;
+  }
 
   onGridReady(params: GridReadyEvent) {
     // params.api.sizeColumnsToFit();
+    this.gridApi = params.api;
     this.rowData$ = this.http
-      .get<any[]>('https://my.api.mockaroo.com/teste_empresa.json?key=db46d350');
+      .get<any[]>('https://my.api.mockaroo.com/teste_empresa2.json?key=db46d350');
   }
 
   // Example of consuming Grid Event

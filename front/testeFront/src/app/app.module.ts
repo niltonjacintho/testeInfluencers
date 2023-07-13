@@ -35,7 +35,6 @@ import { DialogModule } from 'primeng/dialog';
     DashboardComponent,
     InfluencerListComponent,
     InfluencerEditComponent,
-
   ],
   imports: [
     BrowserModule,
