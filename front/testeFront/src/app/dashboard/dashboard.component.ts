@@ -8,9 +8,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  private breakpointObserver = inject(BreakpointObserver);
+  //private breakpointObserver = inject(BreakpointObserver);
 
-  /** Based on the screen size, switch from standard to one column per row */
+constructor(private breakpointObserver: BreakpointObserver) {
+
+}  /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {

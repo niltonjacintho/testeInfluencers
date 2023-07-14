@@ -5,8 +5,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import logger from "./utils/logger";
 import { createConnection } from "typeorm";
-// import {} from "./entities/"
 
+// import {} from "./entities/"
+const cors = require('cors');
 const port = Number(process.env.PORT) || 8000;
 
 const app = express();
@@ -24,8 +25,15 @@ const connection = createConnection({
 
 app.use(express.json());
 
+app.use(cors({ origin: '*' }));
+
 app.listen(port, async () => {
   logger.info(`App is running at <<<<< http://localhost:${port} >>>>>>`);
   routes(app);
   swaggerDocs(app, port);
 });
+
+function cors1(arg0: { origin: string; }): any {
+  throw new Error("Function not implemented." + arg0);
+}
+

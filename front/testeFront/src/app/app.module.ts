@@ -1,33 +1,56 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from "@angular/router/testing";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule } from '@angular/common/http';
+
+
+import { AgGridModule } from 'ag-grid-angular';
+
+
+//Material
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
-import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { RouterTestingModule } from "@angular/router/testing";
-
-import { AgGridModule } from 'ag-grid-angular';
-
-
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { AppRoutingModule } from './app-routing.module';
-import { InfluencerListComponent } from './influencer-list/influencer-list.component';
-import { HttpClientModule } from '@angular/common/http';
-import { InfluencerEditComponent } from './influencer-edit/influencer-edit.component'
-import { AngularJsonFormModule } from 'angular-json-form';
+
+/* //PrimeNg
 
 import { PanelModule } from 'primeng/panel';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
+ */
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { FormsModule } from '@angular/forms';
+import { InfluencerListComponent } from './components/influencer-list/influencer-list.component';
+import { InfluencerEditComponent } from './components/influencer-edit/influencer-edit.component';
+import { PrimeNGModule } from './primeNg.module';
+import { ToastComponent } from './components/toast/toast.component';
+
+
+
+const MaterialModules = [
+  MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+]
 
 @NgModule({
   declarations: [
@@ -35,28 +58,21 @@ import { DialogModule } from 'primeng/dialog';
     DashboardComponent,
     InfluencerListComponent,
     InfluencerEditComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
+    //Material
+    ...MaterialModules,
+    //PrimeNg
+    PrimeNGModule,
     RouterModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
     RouterTestingModule,
     AppRoutingModule,
     AgGridModule,
     HttpClientModule,
-    AngularJsonFormModule,
-    PanelModule,
-    DialogModule,
     FormsModule,
-    InputTextModule
 
   ],
   providers: [],

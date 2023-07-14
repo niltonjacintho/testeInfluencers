@@ -1,0 +1,23 @@
+<ag-grid-angular
+  style="width: 100%; height: 45vh"
+  class="ag-theme-alpine"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="rowData"
+  [rowSelection]="'multiple'"
+  [animateRows]="true"
+  (gridReady)="onGridReady($event)"
+  (rowDoubleClicked)="setVisible()"
+></ag-grid-angular>
+<p-dialog
+  [(visible)]="visible"
+  [style]="{ width: '80vw' }"
+  (onHide)="visible = false"
+>
+  <!-- <p-panel header="Header"> -->
+  <app-influencer-edit
+    [selectedInfluencerData]="selectedInfluencer"
+    (closeModal)="visible = false"
+  ></app-influencer-edit>
+  <!-- </p-panel> -->
+</p-dialog>

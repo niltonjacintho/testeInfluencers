@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.0",
+    "@angular/cdk": "^16.1.4",
     "@angular/common": "^16.1.0",
     "@angular/compiler": "^16.1.0",
     "@angular/core": "^16.1.0",
@@ -22,6 +23,7 @@
     "ag-grid-angular": "^30.0.3",
     "ag-grid-community": "^30.0.3",
     "angular-json-form": "^1.4.5",
+    "primeflex": "^3.3.1",
     "primeng": "^16.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

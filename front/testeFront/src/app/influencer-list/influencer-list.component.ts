@@ -53,7 +53,7 @@ export class InfluencerListComponent {
     // params.api.sizeColumnsToFit();
     this.gridApi = params.api;
     this.rowData$ = this.http
-      .get<any[]>('https://my.api.mockaroo.com/teste_empresa2.json?key=db46d350');
+      .get<any[]>('http://localhost:8000/influencer');
   }
 
   // Example of consuming Grid Event
