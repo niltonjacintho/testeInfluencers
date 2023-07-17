@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfluencerEditComponent } from './influencer-edit.component';
+import { InfluencerEditComponent } from './xinfluencer-edit.component';
 
 describe('InfluencerEditComponent', () => {
   let component: InfluencerEditComponent;

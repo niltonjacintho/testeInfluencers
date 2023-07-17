@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 // Botões
 import { ButtonModule } from 'primeng/button';
 
+
 // card e paineis
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -43,10 +44,10 @@ import { RippleModule } from 'primeng/ripple';
 import { ProgressBarModule } from 'primeng/progressbar';
 
 const formModules = [
-//  AutoCompleteModule,
- // CalendarModule,
+  //  AutoCompleteModule,
+  // CalendarModule,
   InputMaskModule,
- // ListboxModule,
+  // ListboxModule,
   InputTextModule,
   CheckboxModule,
   DropdownModule,
@@ -55,18 +56,18 @@ const formModules = [
 const buttonModules = [ButtonModule];
 
 const menuModules = [
-//  SlideMenuModule,
- // PanelMenuModule,
- // MenuModule,
- // SplitButtonModule,
+  //  SlideMenuModule,
+  // PanelMenuModule,
+  // MenuModule,
+  SplitButtonModule,
 ];
 
 const panelModules = [
- // CardModule,
-  //ToolbarModule,
- // TabMenuModule,
+  // CardModule,
+  ToolbarModule,
+  // TabMenuModule,
   PanelModule,
- // AccordionModule,
+  // AccordionModule,
 ];
 
 const dialogModules = [
@@ -106,4 +107,4 @@ const sliderNeffecsModules = [
     ...dialogModules,
   ],
 })
-export class PrimeNGModule {}
+export class PrimeNGModule { }

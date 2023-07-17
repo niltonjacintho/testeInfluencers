@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InfluencerService } from './services/influencer.service'  // './influenser.service.ts.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Influencer Dash';
 
+  constructor(private influencerSrv: InfluencerService) { }
+
   handleClick(event: Event) {
     console.log(event)
+  }
+
+  resetData() {
+    console.log('reseting');
+    this.influencerSrv.resetData();
   }
 }

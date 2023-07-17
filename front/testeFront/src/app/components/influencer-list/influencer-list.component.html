@@ -1,23 +1,27 @@
-<ag-grid-angular
-  style="width: 100%; height: 45vh"
-  class="ag-theme-alpine"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [rowData]="rowData"
-  [rowSelection]="'multiple'"
-  [animateRows]="true"
-  (gridReady)="onGridReady($event)"
-  (rowDoubleClicked)="setVisible()"
-></ag-grid-angular>
-<p-dialog
-  [(visible)]="visible"
-  [style]="{ width: '80vw' }"
-  (onHide)="visible = false"
->
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button icon="pi pi-search" [style]="{ width: '10vw' }" class="mr-2 menu_short" (click)="add()"> Novo</p-button>
+    <p-button icon="pi pi-calendar" [style]="{ width: '10vw' }" styleClass="p-button-success mr-2"
+      (click)="edit()">Edit</p-button>
+    <p-button icon="pi pi-times" [style]="{ width: '10vw' }" styleClass="p-button-danger"
+      (click)="remove()">Rem</p-button>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button icon="pi pi-times" [style]="{ width: '10vw' }" styleClass="p-button-warning"
+      (click)="getData()">Refresh</p-button>
+  </div>
+</p-toolbar>
+<ag-grid-angular style="width: 100%; height: 33vh" class="ag-theme-alpine" [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)"></ag-grid-angular>
+<p-dialog [(visible)]="visible" [style]="{ width: '80vw' }" (onHide)="visible = false">
   <!-- <p-panel header="Header"> -->
-  <app-influencer-edit
-    [selectedInfluencerData]="selectedInfluencer"
-    (closeModal)="visible = false"
-  ></app-influencer-edit>
+  <app-influencer-edit [selectedInfluencerData]="selectedInfluencer"
+    (closeModal)="visible = false"></app-influencer-edit>
+  <!-- </p-panel> -->
+</p-dialog>
+
+<p-dialog id="newInfluencer" [(visible)]="visibleNew" [style]="{ width: '80vw' }" (onHide)="visible = false">
+  <!-- <p-panel header="Header"> -->
+  <app-influencer-edit (closeModal)="visibleNew = false"></app-influencer-edit>
   <!-- </p-panel> -->
 </p-dialog>

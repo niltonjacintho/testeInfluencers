@@ -158,7 +158,8 @@ function routes(app) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.patch('/influencer', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    app.put('/influencer', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        console.log('TENTANDO SALVAR');
         const result = yield infUseCase.update(req.body);
         res.status(result.status).json(result.json);
     }));
@@ -186,6 +187,27 @@ function routes(app) {
     */
     app.delete('/influencer/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
         const result = yield infUseCase.delete(parseInt(req.params.id));
+        res.status(result.status).json(result.json);
+    }));
+    /**
+  * @openapi
+  *  /influencer/reset:
+  *  paths:
+  *   Influencers:
+  *  delete:
+  *     tags:
+  *       - influencer
+  *     description: Exclui um influenciador
+  *     responses:
+  *         200:
+  *           description:
+  *               Registro excluido
+  *         400:
+  *           description: URL not found - Provavelmente a API esta fora do ar
+  */
+    app.post('/influencer/reset', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        console.log('i am in reset data');
+        const result = yield infUseCase.resetData();
         res.status(result.status).json(result.json);
     }));
 }

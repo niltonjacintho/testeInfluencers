@@ -4,138 +4,72 @@
       <h4 class="header-title">Dados do Influencer selecionado</h4>
     </div>
   </div>
-  <form
-    (ngSubmit)="onSubmit()"
-    #selectedInfluencerDataForm="ngForm"
-    class="formgrid grid"
-  >
+  <form (ngSubmit)="onSubmit()" #selectedInfluencerDataForm="ngForm" class="formgrid grid">
     <div class="field col-6">
       <label for="nome">Nome</label>
-      <input
-        type="text"
-        id="nome"
-        name="selectedInfluencerDataNome"
-        required
-        [(ngModel)]="selectedInfluencerData.nome"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+      <input type="text" id="nome" name="selectedInfluencerDataNome" required [(ngModel)]="selectedInfluencerData.nome"
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-6">
       <label for="nomeCompleto">Nome Completo</label>
-      <input
-        type="text"
-        id="nomeCompleto"
-        name="selectedInfluencerDataNomeCompleto"
-        required
-        [(ngModel)]="selectedInfluencerData.nomeCompleto"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+      <input type="text" id="nomeCompleto" name="selectedInfluencerDataNomeCompleto" required
+        [(ngModel)]="selectedInfluencerData.fullname"
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-6">
       <label for="nick">Nickname</label>
-      <input
-        type="text"
-        id="nick"
-        name="selectedInfluencerDataNick"
-        required
-        [(ngModel)]="selectedInfluencerData.nick"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+      <input type="text" id="nick" name="selectedInfluencerDataNick" required [(ngModel)]="selectedInfluencerData.nick"
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-6">
       <label for="email">Email</label>
-      <input
-        type="text"
-        id="email"
-        email
-        name="selectedInfluencerDataEmail"
-        required
+      <input type="text" id="email" email name="selectedInfluencerDataEmail" required
         [(ngModel)]="selectedInfluencerData.email"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-4">
       <label for="instagram">Instagram</label>
-      <input
-        type="text"
-        id="instagram"
-        name="selectedInfluencerDataInstagram"
-        required
+      <input type="text" id="instagram" name="selectedInfluencerDataInstagram" required
         [(ngModel)]="selectedInfluencerData.instagram"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-4">
       <label for="youtube">Youtube</label>
-      <input
-        type="text"
-        id="youtube"
-        name="selectedInfluencerDataYoutube"
-        required
+      <input type="text" id="youtube" name="selectedInfluencerDataYoutube" required
         [(ngModel)]="selectedInfluencerData.youtube"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
     <div class="field col-4">
       <label for="facebook">Facebook</label>
-      <input
-        type="text"
-        id="facebook"
-        name="selectedInfluencerDataFacebook"
-        required
+      <input type="text" id="facebook" name="selectedInfluencerDataFacebook" required
         [(ngModel)]="selectedInfluencerData.facebook"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
     <div class="field col-12">
       <label for="outros">Outros</label>
-      <input
-        type="text"
-        id="outros"
-        name="selectedInfluencerDataOutros"
-        required
+      <input type="text" id="outros" name="selectedInfluencerDataOutros" required
         [(ngModel)]="selectedInfluencerData.outros"
-        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-      />
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
     <div class="field col-4">
-      <button
-        pButton
-        pRipple
-        type="button"
-        (click)="cancelar()"
-        label="Cancelar"
-        class="p-button-raised p-button-lg p-button-warning"
-      ></button>
+      <button pButton pRipple type="button" (click)="cancelar()" label="Cancelar"
+        class="p-button-raised p-button-lg p-button-warning"></button>
     </div>
-    <div class="field col-4">
-      <button
-        pButton
-        pRipple
-        type="button"
-        (click)="cancelar()"
-        label="Deletar Influencer"
-        class="p-button-raised p-button-lg p-button-danger"
-      ></button>
-    </div>
+    <!-- <div class="field col-4">
+      <button pButton pRipple type="button" (click)="remover()" label="Deletar Influencer"
+        class="p-button-raised p-button-lg p-button-danger"></button>
+    </div> -->
 
     <div class="field col-4">
-      <button
-        pButton
-        pRipple
-        label="Salvar"
-        type="submit"
-        [disabled]="!isFormValid(selectedInfluencerDataForm)"
-        class="p-button-raised p-button-lg"
-        [class.p-button-secondary]="!isFormValid(selectedInfluencerDataForm)"
-        [class.p-button-success]="isFormValid(selectedInfluencerDataForm)"
-      ></button>
+      <button pButton pRipple label="Salvar" type="submit" [disabled]="!isFormValid(selectedInfluencerDataForm)"
+        class="p-button-raised p-button-lg" [class.p-button-secondary]="!isFormValid(selectedInfluencerDataForm)"
+        [class.p-button-success]="isFormValid(selectedInfluencerDataForm)"></button>
     </div>
   </form>
 </div>

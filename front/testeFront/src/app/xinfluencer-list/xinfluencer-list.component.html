@@ -1,0 +1,18 @@
+<div>
+    <div>
+        <button>Update</button>
+        <button>Duplicate</button>
+        <button>Delete</button>
+        <button>Clear Selection</button>
+        <button>Update Model</button>
+    </div>
+    <ag-grid-angular style="width: 94vw; height: 45vh" class="ag-theme-alpine" [gridOptions]="gridOptions"
+        [rowData]="rowData$ | async" (gridReady)="onGridReady($event)"
+        (rowDoubleClicked)=setVisible()></ag-grid-angular>
+    <p-dialog header="Dados do fornecedor selecionado" [(visible)]="visible" [style]="{width: '80vw'}"
+        (onHide)="visible = false">
+        <!-- <p-panel header="Header"> -->
+        <app-influencer-edit></app-influencer-edit>
+        <!-- </p-panel> -->
+    </p-dialog>
+</div>

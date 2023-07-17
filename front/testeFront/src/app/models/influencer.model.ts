@@ -1,7 +1,7 @@
 export interface InfluencerInterface {
     id: number;
     nome: string | null;
-    nomeCompleto: string | null;
+    fullname: string | null;
     nick: string | null;
     senha: string | null;
     telefone: string | null;
@@ -14,11 +14,11 @@ export interface InfluencerInterface {
 }
 
 
-export const newInfluencerInterface = (():InfluencerInterface => {
+export const newInfluencerInterface = ((): InfluencerInterface => {
     return {
         id: 0,
         nome: '',
-        nomeCompleto: '',
+        fullname: '',
         nick: '',
         senha: '',
         telefone: '',

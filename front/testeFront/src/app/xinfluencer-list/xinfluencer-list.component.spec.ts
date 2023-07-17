@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfluencerListComponent } from './influencer-list.component';
+import { InfluencerListComponent } from './xinfluencer-list.component';
 
 describe('InfluencerListComponent', () => {
   let component: InfluencerListComponent;

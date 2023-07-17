@@ -157,7 +157,8 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.patch('/influencer', async (req, res) => {
+    app.put('/influencer', async (req, res) => {
+        console.log('TENTANDO SALVAR')
         const result = await infUseCase.update(req.body);
         res.status(result.status).json(result.json);
     });
@@ -186,6 +187,91 @@ function routes(app: Express) {
     */
     app.delete('/influencer/:id', async (req, res) => {
         const result = await infUseCase.delete(parseInt(req.params.id));
+        res.status(result.status).json(result.json);
+    });
+
+    /**
+  * @openapi
+  *  /influencer/reset:
+  *  paths:
+  *   Influencers:
+  *  delete:
+  *     tags:
+  *       - influencer
+  *     description: Exclui um influenciador
+  *     responses:
+  *         200:
+  *           description: 
+  *               Registro excluido
+  *         400:
+  *           description: URL not found - Provavelmente a API esta fora do ar
+  */
+    app.post('/influencer/reset', async (req, res) => {
+        console.log('i am in reset data');
+        const result = await infUseCase.resetData();
+        res.status(result.status).json(result.json);
+    });
+
+    /**
+    * @openapi
+    *  /influencer/reset:
+    *  paths:
+    *   Influencers:
+    *  delete:
+    *     tags:
+    *       - influencer
+    *     description: Exclui um influenciador
+    *     responses:
+    *         200:
+    *           description: 
+    *               Registro excluido
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
+    app.post('/influencer/randomVote/:qtd', async (req, res) => {
+        const result = await infUseCase.randomVoter(parseInt(req.params.qtd));
+        res.status(result.status).json(result.json);
+    });
+
+    /**
+    * @openapi
+    *  /influencer/top10:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: Gera o top 10 para o grid
+    *     responses:
+    *         200:
+    *           description: 
+    *               Registro excluido
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
+    app.get('/influencer/top10', async (req, res) => {
+        const result = await infUseCase.top10();
+        res.status(result.status).json(result.json);
+    });
+
+    /**
+    * @openapi
+    *  /influencer/top10Graph:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: Gerar o top 10 no formato dos gráficos
+    *     responses:
+    *         200:
+    *           description: 
+    *               Registro excluido
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
+    app.get('/influencer/top10Graph', async (req, res) => {
+        const result = await infUseCase.top10Graph();
         res.status(result.status).json(result.json);
     });
 

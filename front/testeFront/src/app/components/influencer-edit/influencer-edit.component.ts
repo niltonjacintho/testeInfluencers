@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import {
   InfluencerInterface,
   newInfluencerInterface,
@@ -16,8 +16,8 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
   //selectedInfluencerData: InfluencerInterface = newInfluencerInterface();
 
   @Input() selectedInfluencerData: InfluencerInterface = newInfluencerInterface();
-    @Output() closeModal = new EventEmitter<void>();
-  constructor(private influencerSrv: InfluencerService,  private toastSrv: ToastService) {}
+  @Output() closeModal = new EventEmitter<void>();
+  constructor(private influencerSrv: InfluencerService, private toastSrv: ToastService) { }
 
   ngOnInit(): void {
 
@@ -31,7 +31,7 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
 
   }
 
-  isFormValid(form: NgForm){
+  isFormValid(form: NgForm) {
     let retorno = false;
     if (form.valid) {
       retorno = true;
@@ -40,10 +40,32 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log('asda');
-    this.toastSrv.notify('success', 'Edição concluida com sucesso ✔️', '', 3000)
+    try {
+      if ((this.selectedInfluencerData.id != 0) && (this.selectedInfluencerData.id != undefined)) {
+        this.influencerSrv.salvar(JSON.stringify(this.selectedInfluencerData))
+      } else {
+        this.influencerSrv.add(JSON.stringify(this.selectedInfluencerData))
+      }
+
+      this.toastSrv.notify('success', 'Edição concluida com sucesso ✔️', '', 3000)
+    } catch (error) {
+      this.toastSrv.notify('error', 'Edição não concluida ✔️', '', 3000)
+    }
     this.closeModal.emit();
   }
+
+  // remover() {
+  //   try {
+  //     this.influencerSrv.remover(this.selectedInfluencerData.id)
+  //     console.log('TESTE DE RETORNO ', this.selectedInfluencerData);
+  //     this.toastSrv.notify('success', 'Exclusão concluida com sucesso ✔️', '', 3000)
+  //   } catch (error) {
+  //     this.toastSrv.notify('error', 'Exclusão não concluida ✔️', '', 3000)
+  //   }
+
+  //   this.closeModal.emit();
+  // }
+
 
   cancelar() {
     this.toastSrv.notify('error', 'Edição cancelada 🪶', '', 3000)
