@@ -63,7 +63,7 @@ const menuModules = [
 ];
 
 const panelModules = [
-  // CardModule,
+  CardModule,
   ToolbarModule,
   // TabMenuModule,
   PanelModule,
