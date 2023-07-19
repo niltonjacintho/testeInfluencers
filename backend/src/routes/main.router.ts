@@ -235,7 +235,7 @@ function routes(app: Express) {
 
     /**
     * @openapi
-    *  /influencer/top10:
+    *  /influencer/topdez/list:
     *  paths:
     *   Influencers:
     *  get:
@@ -249,14 +249,15 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.get('/influencer/top10', async (req, res) => {
+    app.get('/influencer/topdez/list', async (req, res) => {
+        console.log('ENTROU-----------------------------------', req.params)
         const result = await infUseCase.top10();
         res.status(result.status).json(result.json);
     });
 
     /**
     * @openapi
-    *  /influencer/top10Graph:
+    *  /influencer/topdezGraph/list:
     *  paths:
     *   Influencers:
     *  get:
@@ -270,7 +271,7 @@ function routes(app: Express) {
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.get('/influencer/top10Graph', async (req, res) => {
+    app.get('/influencer/topdezGraph/list', async (req, res) => {
         const result = await infUseCase.top10Graph();
         res.status(result.status).json(result.json);
     });

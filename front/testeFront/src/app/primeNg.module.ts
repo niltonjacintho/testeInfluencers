@@ -11,6 +11,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
+import { ChartModule } from 'primeng/chart';
 
 // Forms e inputs
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -68,6 +69,7 @@ const panelModules = [
   // TabMenuModule,
   PanelModule,
   // AccordionModule,
+  ChartModule,
 ];
 
 const dialogModules = [

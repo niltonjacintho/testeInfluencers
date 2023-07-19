@@ -110,11 +110,13 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
     }
 
     async top10(qtd: number = 10) {
+        console.log('number ===>', qtd)
         try {
             let sql = ' select NOME, count(votos), i.votos , (select count(votos) from influenciador i2 where i2.votos = i.votos ) total2 from influenciador i  ';
             sql += ' group by i.nome, i.votos ';
             sql += ' order by i.votos desc, total2 desc ';
-            sql += 'limit '+ qtd.toString();
+            sql += ' limit 10 ' //+ qtd ? qtd.toString() : '10';
+            console.log('SQL ===> ', sql);
             const influenciador = await getRepository(Influenciador)
                 .query(sql);
             return ({ status: 200, json: influenciador, message: '' });
@@ -130,7 +132,7 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
             sql += 'group by i.nome) as r ';
             sql += 'group by r.total ';
             sql += 'order by count(total) ';
-            sql += 'limit '+ qtd.toString();
+            sql += 'limit ' + qtd.toString();
             const influenciador = await getRepository(Influenciador)
                 .query(sql);
             return ({ status: 200, json: influenciador, message: '' });

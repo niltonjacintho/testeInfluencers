@@ -22,19 +22,20 @@ export class InfluencerService {
 
   constructor(private http: HttpClient) { }
 
-  /*  public get selectedInfluencer(): InfluencerInterface {
-     return this._selectedInfluencer;
-   }
-   public set selectedInfluencer(value: InfluencerInterface) {
-     this._selectedInfluencer = value;
-   } */
-
   get InfluencerList(): Observable<InfluencerInterface[]> {
     if (this.getFromApi) {
       return this.http.get<InfluencerInterface[]>(this.apiUrl);
     } else {
       return of(mockLocalData);
     }
+  }
+
+  get top10(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/topdez/list');
+  }
+
+  top10Graph(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/topdezGraph/list');
   }
 
   resetData() {

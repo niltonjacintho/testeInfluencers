@@ -4,36 +4,31 @@
   <!-- <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" style="height: 88vh"> -->
   <div class="card-wrapper dashboard-card-container">
 
-    <mat-card class="dashboard-card dashboard-card-footer">
+    <mat-card class="dashboard-card dashboard-card-top">
       <mat-card-header>
-        <mat-card-title>Influenciadores 2
+        <mat-card-title>DashBoard
         </mat-card-title>
       </mat-card-header>
       <mat-card-content class="dashboard-card-content">
         <div class="container">
           <!-- <div class="dashboard-card-top10"> -->
-          <p-card header="Title" [style]="{width: '32vw', height: '45vw'}">
-            <p class="m-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis
-              esse, cupiditate neque
-              quas!
-            </p>
+          <p-card [style]="{width: '32vw', height: '15vw'}">
+            <!-- <p class="m-4"> -->
+            <app-top10></app-top10>
+            <!-- </p> -->
           </p-card>
+
           <!-- </div>
           <div class="dashboard-card-graph"> -->
-          <p-card header="Title2" [style]="{width: '60vw', height: '45vw'}">
-            <p class="m-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis
-              esse, cupiditate neque
-              quas!
+          <p-card header="Gráfico" [style]="{width: '60vw', height: '15vw'}">
+            <p class="m-4"><app-top10-graph></app-top10-graph>
             </p>
           </p-card>
         </div>
         <!-- </div> -->
       </mat-card-content>
     </mat-card>
+    <br>
     <mat-card class="dashboard-card dashboard-card-grid ">
       <mat-card-header>
         <mat-card-title>Influenciadores 1

@@ -23,6 +23,7 @@
     "ag-grid-angular": "^30.0.3",
     "ag-grid-community": "^30.0.3",
     "angular-json-form": "^1.4.5",
+    "chart.js": "^4.3.0",
     "primeflex": "^3.3.1",
     "primeng": "^16.0.2",
     "rxjs": "~7.8.0",

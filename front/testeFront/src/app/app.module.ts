@@ -38,6 +38,8 @@ import { InfluencerListComponent } from './components/influencer-list/influencer
 import { InfluencerEditComponent } from './components/influencer-edit/influencer-edit.component';
 import { PrimeNGModule } from './primeNg.module';
 import { ToastComponent } from './components/toast/toast.component';
+import { Top10GraphComponent } from './top10-graph/top10-graph.component';
+import { Top10Component } from './top10/top10.component';
 
 
 
@@ -58,7 +60,9 @@ const MaterialModules = [
     DashboardComponent,
     InfluencerListComponent,
     InfluencerEditComponent,
-    ToastComponent
+    ToastComponent,
+    Top10GraphComponent,
+    Top10Component
   ],
   imports: [
     BrowserModule,

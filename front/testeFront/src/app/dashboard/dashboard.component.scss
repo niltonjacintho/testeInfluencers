@@ -4,8 +4,13 @@
 
 .container {
   // width: 100%;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
   display: flex;
-  background-color: black;
+  height: 35vh;
+  background-color: rgb(236, 237, 226);
   justify-content: space-between;
 }
 
@@ -23,7 +28,7 @@
 .dashboard-card-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%;
   min-height: calc(100vh - 250px);
 
@@ -37,17 +42,19 @@
     }
 
     &.dashboard-card-footer {
-      height: 40vh;      
+      height: 40vh;
     }
 
     &.dashboard-card-top {
-      height: 50vh;
-      width: 40vw;
+      height: 42vh;
+      // width: 40vw;
     }
+
     &.dashboard-card-top10 {
       height: 50vh;
-      width: 40%;
+      // width: 40%;
     }
+
     &.dashboard-card-graph {
       width: 60vw;
     }
