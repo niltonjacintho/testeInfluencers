@@ -33,14 +33,12 @@ export class Top10Component implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
-    // params.api.sizeColumnsToFit();
     this.gridApi = params.api;
     this.getData();
   }
 
   getData() {
     this.influencerSrv.top10.subscribe((res) => {
-      console.log('RETORNO ', res);
       this.rowData$ = res;
       this.gridApi?.setRowData(this.rowData$);
     });

@@ -12,7 +12,6 @@ import { GridApi, GridOptions } from 'ag-grid-community';
   providedIn: 'root',
 })
 export class InfluencerService {
-  /* private _selectedInfluencer: InfluencerInterface = newInfluencerInterface(); */
   selectedInfluencer: InfluencerInterface = newInfluencerInterface();
   apiUrl = 'http://localhost:8000/influencer';
   getFromApi = true
@@ -29,11 +28,6 @@ export class InfluencerService {
   get top10(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + '/topdez/list');
   }
-
-  // get graphUfs(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.apiUrl + '/topdez/list');
-  // }
-
 
   get ufs() {
     return [
@@ -191,7 +185,6 @@ export class InfluencerService {
   }
 
   async remover(id: number) {
-    console.log('ID => ', id)
     try {
       let headers = new HttpHeaders({
         'Content-Type': 'application/json'

@@ -13,8 +13,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./influencer-edit.component.scss'],
 })
 export class InfluencerEditComponent implements OnInit, AfterViewInit {
-  //selectedInfluencerData: InfluencerInterface = newInfluencerInterface();
-
   @Input() selectedInfluencerData: InfluencerInterface = newInfluencerInterface();
   @Output() closeModal = new EventEmitter<void>();
 
@@ -29,11 +27,6 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //this.selectedInfluencerData = this.influencerSrv.selectedInfluencer;
-    console.log(this.selectedInfluencerData);
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-
   }
 
   isFormValid(form: NgForm) {
@@ -58,19 +51,6 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
     }
     this.closeModal.emit();
   }
-
-  // remover() {
-  //   try {
-  //     this.influencerSrv.remover(this.selectedInfluencerData.id)
-  //     console.log('TESTE DE RETORNO ', this.selectedInfluencerData);
-  //     this.toastSrv.notify('success', 'Exclusão concluida com sucesso ✔️', '', 3000)
-  //   } catch (error) {
-  //     this.toastSrv.notify('error', 'Exclusão não concluida ✔️', '', 3000)
-  //   }
-
-  //   this.closeModal.emit();
-  // }
-
 
   cancelar() {
     this.toastSrv.notify('error', 'Edição cancelada 🪶', '', 3000)

@@ -68,7 +68,6 @@ export class InfluencerListComponent implements OnInit {
   edit() {
     const selectedData: InfluencerInterface = this.gridApi!.getSelectedRows()[0];
     if (selectedData) {
-      console.log('SELECTWED DATA', selectedData);
       this.selectedInfluencer = selectedData;
       this.visible = !this.visible;
     } else {
@@ -87,20 +86,17 @@ export class InfluencerListComponent implements OnInit {
         this.toastSrv.notify('warn', 'Por favor, selecione um influenciador ✔️', '', 3000)
       }
     } catch (error) {
-      console.log(error)
       this.toastSrv.notify('error', 'Influencer NÃO pode ser removido', 'Houve um erro no processo de exclusão. Pedimos que tente novamente em alguns minutos ou que entre em contato com o suporte.', 3000)
     }
   }
 
   onGridReady(params: GridReadyEvent) {
-    // params.api.sizeColumnsToFit();
     this.gridApi = params.api;
     this.getData();
   }
 
   // Example of consuming Grid Event
   onCellClicked(e: CellClickedEvent): void {
-    console.log('cellClicked', e);
   }
 
   // Example using Grid's API
@@ -110,7 +106,6 @@ export class InfluencerListComponent implements OnInit {
 
   getData() {
     this.influencerSrv.InfluencerList.subscribe((res) => {
-      console.log('RETORNO ', res);
       this.rowData$ = res;
       this.gridApi?.setRowData(this.rowData$);
     });
