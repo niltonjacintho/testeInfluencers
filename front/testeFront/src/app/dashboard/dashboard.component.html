@@ -11,21 +11,16 @@
       </mat-card-header>
       <mat-card-content class="dashboard-card-content">
         <div class="container">
-          <!-- <div class="dashboard-card-top10"> -->
           <p-card [style]="{width: '32vw', height: '15vw'}">
-            <!-- <p class="m-4"> -->
             <app-top10></app-top10>
-            <!-- </p> -->
           </p-card>
-
-          <!-- </div>
-          <div class="dashboard-card-graph"> -->
-          <p-card header="Gráfico" [style]="{width: '60vw', height: '15vw'}">
-            <p class="m-4"><app-top10-graph></app-top10-graph>
-            </p>
+          <p-card [style]="{width: '40vw', height: '15vw'}">
+            <app-top10-graph></app-top10-graph>
+          </p-card>
+          <p-card [style]="{width: '20vw', height: '15vw'}">
+            <app-top10-graph></app-top10-graph>
           </p-card>
         </div>
-        <!-- </div> -->
       </mat-card-content>
     </mat-card>
     <br>
@@ -49,8 +44,5 @@
         </button>
       </mat-card-actions>
     </mat-card>
-
   </div>
-  <!-- </mat-grid-tile> -->
-  <!-- </mat-grid-list> -->
 </div>
