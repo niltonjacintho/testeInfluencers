@@ -11,14 +11,14 @@
       </mat-card-header>
       <mat-card-content class="dashboard-card-content">
         <div class="container">
-          <p-card [style]="{width: '32vw', height: '15vw'}">
+          <p-card [style]="{width: '20vw', height: '15vw'}">
             <app-top10></app-top10>
           </p-card>
-          <p-card [style]="{width: '40vw', height: '15vw'}">
+          <p-card [style]="{width: '25', height: '15vw'}">
             <app-top10-graph></app-top10-graph>
           </p-card>
-          <p-card [style]="{width: '20vw', height: '15vw'}">
-            <app-top10-graph></app-top10-graph>
+          <p-card [style]="{width: '44vw', height: '15vw'}">
+            <app-analise-ufs></app-analise-ufs>
           </p-card>
         </div>
       </mat-card-content>
@@ -26,7 +26,7 @@
     <br>
     <mat-card class="dashboard-card dashboard-card-grid ">
       <mat-card-header>
-        <mat-card-title>Influenciadores 1
+        <mat-card-title>Influenciadores
           <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon>more_vert</mat-icon>
           </button>

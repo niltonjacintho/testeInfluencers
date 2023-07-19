@@ -39,6 +39,7 @@ export class InfluencerListComponent implements OnInit {
       rowData: null,
       columnDefs: [
         { field: "votos", headerName: "Votos", flex: 2, checkboxSelection: true },
+        { field: "uf", headerName: "UF", flex: 1 },
         { field: "nome", headerName: "Usuário", flex: 2 },
         { field: "fullname", headerName: "Nome", flex: 5, },
         { field: "nick", headerName: "Nick", flex: 2 },

@@ -1,4 +1,5 @@
 import { Express, Request, Response } from "express";
+import log from "../utils/logger";
 import { InfluencersUseCase } from './../use-cases/influenciador.usecase'
 
 function routes(app: Express) {
@@ -192,43 +193,43 @@ function routes(app: Express) {
 
     /**
   * @openapi
-  *  /influencer/reset:
+  *  /influencer/reset/dados/:truncate:
   *  paths:
   *   Influencers:
   *  delete:
   *     tags:
   *       - influencer
-  *     description: Exclui um influenciador
+  *     description: Reinicializa a base de dados
   *     responses:
   *         200:
   *           description: 
-  *               Registro excluido
+  *               base de dados re-inicializada
   *         400:
   *           description: URL not found - Provavelmente a API esta fora do ar
   */
-    app.post('/influencer/reset', async (req, res) => {
-        console.log('i am in reset data');
-        const result = await infUseCase.resetData();
+    app.post('/influencer/reset/dados/:truncate', async (req, res) => {
+        console.log('PARAMETROS ==> ', req.params.truncate.toLowerCase() === 'true', req.params.truncate.toLowerCase())
+        const result = await infUseCase.resetData(100, req.params.truncate.toLowerCase() === 'true');
         res.status(result.status).json(result.json);
     });
 
     /**
     * @openapi
-    *  /influencer/reset:
+    *  /influencer/vote/random/:qtd:
     *  paths:
     *   Influencers:
-    *  delete:
+    *  post:
     *     tags:
     *       - influencer
-    *     description: Exclui um influenciador
+    *     description: Gera votos randomicos
     *     responses:
     *         200:
     *           description: 
-    *               Registro excluido
+    *               Votos realizados
     *         400:
     *           description: URL not found - Provavelmente a API esta fora do ar
     */
-    app.post('/influencer/randomVote/:qtd', async (req, res) => {
+    app.post('/influencer/vote/random/:qtd', async (req, res) => {
         const result = await infUseCase.randomVoter(parseInt(req.params.qtd));
         res.status(result.status).json(result.json);
     });
@@ -273,6 +274,27 @@ function routes(app: Express) {
     */
     app.get('/influencer/topdezGraph/list', async (req, res) => {
         const result = await infUseCase.top10Graph();
+        res.status(result.status).json(result.json);
+    });
+
+    /**
+    * @openapi
+    *  /influencer/graph/uf:
+    *  paths:
+    *   Influencers:
+    *  get:
+    *     tags:
+    *       - influencer
+    *     description: Retorna os dados de analise por uf
+    *     responses:
+    *         200:
+    *           description: 
+    *               Dados retornados com êxito
+    *         400:
+    *           description: URL not found - Provavelmente a API esta fora do ar
+    */
+    app.get('/influencer/graph/uf', async (req, res) => {
+        const result = await infUseCase.graphUf();
         res.status(result.status).json(result.json);
     });
 

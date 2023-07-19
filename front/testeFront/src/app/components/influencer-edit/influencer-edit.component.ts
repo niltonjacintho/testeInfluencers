@@ -17,7 +17,12 @@ export class InfluencerEditComponent implements OnInit, AfterViewInit {
 
   @Input() selectedInfluencerData: InfluencerInterface = newInfluencerInterface();
   @Output() closeModal = new EventEmitter<void>();
-  constructor(private influencerSrv: InfluencerService, private toastSrv: ToastService) { }
+
+  ufs: any = null;
+
+  constructor(public influencerSrv: InfluencerService, private toastSrv: ToastService) {
+    this.ufs = influencerSrv.ufs;
+  }
 
   ngOnInit(): void {
 

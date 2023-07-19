@@ -10,8 +10,9 @@
   <mat-sidenav #sidenav mode="side">
     <mat-nav-list>
       <a mat-list-item routerLink="/dashboard">Home</a>
-      <a mat-list-item (click)="resetData()">Refresh Data</a>
-      <a mat-list-item>Random vote</a>
+      <a mat-list-item (click)="resetData()">Resetar dados</a>
+      <a mat-list-item (click)="addData()">Adicionar influenciadores</a>
+      <a mat-list-item (click)="randomVote()">Random vote</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

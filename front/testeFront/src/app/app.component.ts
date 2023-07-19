@@ -17,6 +17,14 @@ export class AppComponent {
 
   resetData() {
     console.log('reseting');
-    this.influencerSrv.resetData();
+    this.influencerSrv.resetData(true);
+  }
+
+  addData() {
+    this.influencerSrv.resetData(false);
+  }
+  randomVote() {
+    console.log('reseting');
+    this.influencerSrv.randomVote();
   }
 }

@@ -11,6 +11,7 @@ export interface InfluencerInterface {
     facebook: string | null;
     outros: string | null;
     votos: number;
+    uf: string | null;
 }
 
 
@@ -28,5 +29,6 @@ export const newInfluencerInterface = ((): InfluencerInterface => {
         facebook: '',
         outros: '',
         votos: 0,
+        uf: '',
     }
 })

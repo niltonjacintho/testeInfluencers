@@ -23,24 +23,144 @@ export class InfluencerService {
   constructor(private http: HttpClient) { }
 
   get InfluencerList(): Observable<InfluencerInterface[]> {
-    if (this.getFromApi) {
-      return this.http.get<InfluencerInterface[]>(this.apiUrl);
-    } else {
-      return of(mockLocalData);
-    }
+    return this.http.get<InfluencerInterface[]>(this.apiUrl);
   }
 
   get top10(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + '/topdez/list');
   }
 
+  // get graphUfs(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.apiUrl + '/topdez/list');
+  // }
+
+
+  get ufs() {
+    return [
+      {
+        "nome": "none",
+        "sigla": "XX"
+      },
+      {
+        "nome": "Acre",
+        "sigla": "AC"
+      },
+      {
+        "nome": "Alagoas",
+        "sigla": "AL"
+      },
+      {
+        "nome": "Amapá",
+        "sigla": "AP"
+      },
+      {
+        "nome": "Amazonas",
+        "sigla": "AM"
+      },
+      {
+        "nome": "Bahia",
+        "sigla": "BA"
+      },
+      {
+        "nome": "Ceará",
+        "sigla": "CE"
+      },
+      {
+        "nome": "Distrito Federal",
+        "sigla": "DF"
+      },
+      {
+        "nome": "Espírito Santo",
+        "sigla": "ES"
+      },
+      {
+        "nome": "Goiás",
+        "sigla": "GO"
+      },
+      {
+        "nome": "Maranhão",
+        "sigla": "MA"
+      },
+      {
+        "nome": "Mato Grosso",
+        "sigla": "MT"
+      },
+      {
+        "nome": "Mato Grosso do Sul",
+        "sigla": "MS"
+      },
+      {
+        "nome": "Minas Gerais",
+        "sigla": "MG"
+      },
+      {
+        "nome": "Pará",
+        "sigla": "PA"
+      },
+      {
+        "nome": "Paraíba",
+        "sigla": "PB"
+      },
+      {
+        "nome": "Paraná",
+        "sigla": "PR"
+      },
+      {
+        "nome": "Pernambuco",
+        "sigla": "PE"
+      },
+      {
+        "nome": "Piauí",
+        "sigla": "PI"
+      },
+      {
+        "nome": "Rio de Janeiro",
+        "sigla": "RJ"
+      },
+      {
+        "nome": "Rio Grande do Norte",
+        "sigla": "RN"
+      },
+      {
+        "nome": "Rio Grande do Sul",
+        "sigla": "RS"
+      },
+      {
+        "nome": "Santa Catarina",
+        "sigla": "SC"
+      },
+      {
+        "nome": "São Paulo",
+        "sigla": "SP"
+      },
+      {
+        "nome": "Sergipe",
+        "sigla": "SE"
+      },
+      {
+        "nome": "Tocantins",
+        "sigla": "TO"
+      }
+    ];
+  }
+
   top10Graph(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + '/topdezGraph/list');
   }
 
-  resetData() {
-    this.http.post(this.apiUrl + "/reset", {})
+  resetData(truncate: boolean = true) {
+    this.http.post(this.apiUrl + "/reset/dados/" + truncate, {}).subscribe(() => { })
   }
+
+  randomVote() {
+    this.http.post(this.apiUrl + "/vote/random/100", {}).subscribe(() => { })
+  }
+
+
+  get graphUfs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + "/graph/uf");
+  }
+
 
   async salvar(body: any) {
     try {
@@ -80,22 +200,14 @@ export class InfluencerService {
         headers: headers
       }
       await this.http.delete(this.apiUrl + '/' + id.toString(), options).subscribe(response => {
-        //   this.removeSelectedRows();
-      }); //, options);
+      });
     } catch (error) {
       console.log(error)
     }
   }
 
   removeSelectedRows() {
-    // const selectedNodes = this.gridApi?.getRowNode(1);// .getSelectedNodes();
-    // console.log('NODE SELECTED ', selectedNodes)
-    // const selectedData = selectedNodes!.map(node => node.data);
-
-    // Step 2: Remove selected rows from data source
     this.gridApi!.applyTransaction({ remove: [this.selectedInfluencer] });
-
-    // Step 3: Refresh the Grid to reflect the changes
     this.gridOptions!.api!.refreshCells();
   }
 

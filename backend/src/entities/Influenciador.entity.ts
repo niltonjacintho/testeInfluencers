@@ -51,6 +51,9 @@ export class Influenciador {
   @Column("integer", { name: "votos", default: () => "0" })
   votos: number;
 
+  @Column("text", { name: "uf", default: () => " " })
+  uf: string;
+
   constructor() {
     this.id = 0;
     this.nome = '';
@@ -64,5 +67,6 @@ export class Influenciador {
     this.facebook = '';
     this.outros = '';
     this.votos = 0;
+    this.uf = '';
   }
 }

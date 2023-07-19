@@ -18,10 +18,15 @@
         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
     </div>
 
-    <div class="field col-6">
+    <div class="field col-5">
       <label for="nick">Nickname</label>
       <input type="text" id="nick" name="selectedInfluencerDataNick" required [(ngModel)]="selectedInfluencerData.nick"
         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+    </div>
+
+    <div class="field col-1">
+      <label for="uf">UF</label>
+      <p-dropdown [options]="ufs" [(ngModel)]="selectedInfluencerData.uf" optionLabel="sigla"></p-dropdown>
     </div>
 
     <div class="field col-6">

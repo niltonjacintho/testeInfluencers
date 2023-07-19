@@ -1,8 +1,119 @@
 import { getRepository, Like } from 'typeorm';
 import { Influenciador } from '../entities/Influenciador.entity';
 import { faker } from '@faker-js/faker';
+import log from "../utils/logger";
 
-export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
+export class InfluencersUseCase {
+
+    ufs: any[] = [
+        {
+            "nome": "none",
+            "sigla": "XX"
+        },
+        {
+            "nome": "Acre",
+            "sigla": "AC"
+        },
+        {
+            "nome": "Alagoas",
+            "sigla": "AL"
+        },
+        {
+            "nome": "Amapá",
+            "sigla": "AP"
+        },
+        {
+            "nome": "Amazonas",
+            "sigla": "AM"
+        },
+        {
+            "nome": "Bahia",
+            "sigla": "BA"
+        },
+        {
+            "nome": "Ceará",
+            "sigla": "CE"
+        },
+        {
+            "nome": "Distrito Federal",
+            "sigla": "DF"
+        },
+        {
+            "nome": "Espírito Santo",
+            "sigla": "ES"
+        },
+        {
+            "nome": "Goiás",
+            "sigla": "GO"
+        },
+        {
+            "nome": "Maranhão",
+            "sigla": "MA"
+        },
+        {
+            "nome": "Mato Grosso",
+            "sigla": "MT"
+        },
+        {
+            "nome": "Mato Grosso do Sul",
+            "sigla": "MS"
+        },
+        {
+            "nome": "Minas Gerais",
+            "sigla": "MG"
+        },
+        {
+            "nome": "Pará",
+            "sigla": "PA"
+        },
+        {
+            "nome": "Paraíba",
+            "sigla": "PB"
+        },
+        {
+            "nome": "Paraná",
+            "sigla": "PR"
+        },
+        {
+            "nome": "Pernambuco",
+            "sigla": "PE"
+        },
+        {
+            "nome": "Piauí",
+            "sigla": "PI"
+        },
+        {
+            "nome": "Rio de Janeiro",
+            "sigla": "RJ"
+        },
+        {
+            "nome": "Rio Grande do Norte",
+            "sigla": "RN"
+        },
+        {
+            "nome": "Rio Grande do Sul",
+            "sigla": "RS"
+        },
+        {
+            "nome": "Santa Catarina",
+            "sigla": "SC"
+        },
+        {
+            "nome": "São Paulo",
+            "sigla": "SP"
+        },
+        {
+            "nome": "Sergipe",
+            "sigla": "SE"
+        },
+        {
+            "nome": "Tocantins",
+            "sigla": "TO"
+        }
+    ];
+
+
+
     async getByName(nome: string) {
         try {
             const influenciadores = await getRepository(Influenciador)
@@ -53,7 +164,7 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
 
     async update(body: any) {
         const id = parseInt(body.id);
-        console.log('ID em UPDATE', id, body)
+        log.info('ID em UPDATE', id, body)
         try {
             const influenciador = await getRepository(Influenciador).findOneOrFail({ where: { id: id } });
             getRepository(Influenciador).merge(influenciador, body);
@@ -80,12 +191,15 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
         }
     }
 
-    async resetData(qtd: number = 100) {
+    async resetData(qtd: number = 100, trunc: boolean = false) {
+        log.info('Truncate ' + trunc)
         try {
-            const influenciadores = await getRepository(Influenciador)
-                .query("Truncate table influenciador;ALTER SEQUENCE influenciadores_id_seq RESTART WITH 1;");
-            const lista = this.getByName('');
-            //  const influenciador = await getRepository(Influenciador).save(body);
+            //            var influenciadores = await getRepository(Influenciador)
+            if (trunc) {
+                log.info('Truncate ' + trunc)
+                await getRepository(Influenciador)
+                    .query("Truncate table influenciador;ALTER SEQUENCE influenciadores_id_seq RESTART WITH 1;");
+            }
             for (let index = 0; index < qtd; index++) {
                 const body = {
                     "nome": faker.person.firstName(),
@@ -98,12 +212,13 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
                     "youtube": faker.internet.url(),
                     "facebook": faker.lorem.word(),
                     "outros": faker.lorem.word(),
+                    "uf": this.ufs[Math.floor(Math.random() * this.ufs.length)].sigla,
                     "votos": 0,
                     "last_post_date": "1/4/2022"
                 }
                 await getRepository(Influenciador).save(body);
             }
-            return ({ status: 200, json: influenciadores });
+            return ({ status: 200, json: { message: 'Processo finalizado com êxito' } });
         } catch (err: any) {
             return ({ status: 500, json: { message: err.message } });
         }
@@ -142,10 +257,23 @@ export class InfluencersUseCase { // Or BaseUseCase<{ idMask: string}>
     }
 
 
+    async graphUf() {
+        try {
+            let sql = ' select count(uf) total_uf, sum(votos) votos, uf from influenciador i  ';
+            sql += ' group by uf ';
+            sql += ' order by uf';
+            const influenciador = await getRepository(Influenciador)
+                .query(sql);
+            return ({ status: 200, json: influenciador, message: '' });
+        } catch (err: any) {
+            return ({ status: 500, json: { message: err.message } });
+        }
+    }
+
     async randomVoter(qtd: number) {
         try {
             const influenciador = await getRepository(Influenciador)
-                .query('Select RandonVote(' + qtd.toString() + ')')
+                .query('Select randomvote(' + qtd.toString() + ')')
             return ({ status: 200, json: 'Votos realizados', message: '' });
         } catch (err: any) {
             return ({ status: 500, json: { message: err.message } });
