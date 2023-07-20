@@ -5,16 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "tsc": "tsc -p .",
+    "build": "tsc -p .",
+    "start": "node build/index.js",
+    "startdocker": "npx nodemon",
     "start:dev": "npx nodemon"
   },
   "nodemonConfig": {
     "watch": [
-      "src"
+      "app"
     ],
     "ext": "ts",
-    "exec": "ts-node src/index.ts"
+    "exec": "ts-node app/index.ts"
   },
   "author": "Nilton Cesar Jacintho",
   "license": "ISC",

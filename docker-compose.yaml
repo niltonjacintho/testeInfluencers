@@ -1,0 +1,61 @@
+version: "3.9"
+services:
+    influencer-back:
+        build: backend/dockerfile
+        image: influencer-back
+        container_name: influencer
+        restart: always
+        environment:
+            - REDIS_URL=redis
+            - REDIS_PORT=6379
+            - DATABASE_HOST=postgres
+            - DATABASE_PORT=5432
+            - DATABASE_NAME=influencer
+            - DATABASE_PASSWORD=postgres
+            - DATABASE_SCHEMA=public
+            - DATABASE_USERNAME=postgres
+            - DATABASE_DIALECT=postgres
+            - DATABASE_POOL_MAX=5
+            - DATABASE_POOL_MIN=1
+            - DATABASE_POOL_ACQUIRE=30000
+            - DATABASE_POOL_IDLE=30000
+        depends_on:
+            - postgres
+        ports:
+            - "8000:8000"
+    postgres:
+        image: postgres
+        container_name: influencer-postgres
+        restart: always
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./scripts/create_database.sql:/docker-entrypoint-initdb.d/00-role.sql
+        environment:
+            - POSTGRES_DB=influencer
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+    # soy4-front:
+    #     build: ../soy4-soyshare4.0-frontend
+    #     image: soy4-front
+    #     container_name: soy4-front
+    #     restart: always
+    #     depends_on:
+    #         - postgres
+    #         - soy4-back
+    #     links:
+    #         - "redis"
+    #     ports:
+    #         - "3000:80"
+    #     volumes:
+    #         - /lixo/.gitconfig:/.gitconfig            
+networks:
+    api_network:
+        name: api_network
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24
+                - gateway: 172.16.238.1
